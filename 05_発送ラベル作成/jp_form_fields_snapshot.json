@@ -1,10 +1,9 @@
 {
   "format": 2,
-  "dumpedAt": "legacy-converted",
-  "note": "Run npm run jp:dump (or run_japanpost_dump.ps1) on each wizard screen; output overwrites this file with all frames + buttons.",
+  "dumpedAt": "2026-05-13T11:21:56.014Z",
   "frames": [
     {
-      "frameUrl": "",
+      "frameUrl": "https://www.int-mypage.post.japanpost.jp/smart/MSM2000Next",
       "inputs": [
         {
           "i": 0,
@@ -107,7 +106,32 @@
           "className": "form__submit"
         }
       ],
-      "buttons": []
+      "buttons": [
+        {
+          "i": 0,
+          "tag": "INPUT",
+          "type": "button",
+          "id": "",
+          "name": "",
+          "text": "アドレス帳から選択する",
+          "value": "アドレス帳から選択する",
+          "ariaLabel": "",
+          "className": "form__submit otodoke-input__submit--blue",
+          "href": ""
+        },
+        {
+          "i": 1,
+          "tag": "INPUT",
+          "type": "button",
+          "id": "",
+          "name": "",
+          "text": "次へ",
+          "value": "次へ",
+          "ariaLabel": "",
+          "className": "form__submit",
+          "href": ""
+        }
+      ]
     }
   ]
 }

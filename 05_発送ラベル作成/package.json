@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "jp": "node autofill_japanpost_playwright.mjs",
+    "jp:through": "node autofill_japanpost_playwright.mjs",
+    "jp:dump": "node run_dump.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}

@@ -15,17 +15,17 @@ for ($i = 0; $i -lt 8; $i++) {
 Set-Location $root
 Write-Host "Git root: $root"
 
-$prefixed = @(
-  "05_発送ラベル作成/autofill_japanpost_playwright.mjs",
-  "05_発送ラベル作成/playwright_selectors_japanpost.sample.json",
-  "05_発送ラベル作成/label_input.json",
-  "05_発送ラベル作成/build_label_input.ps1",
-  "05_発送ラベル作成/STEPS_4_5_6.txt",
-  "05_発送ラベル作成/jp_form_fields_snapshot.json",
-  "05_発送ラベル作成/run_dump.mjs",
-  "05_発送ラベル作成/package.json",
-  "05_発送ラベル作成/commit_japanpost_autofill.ps1"
-)
+function Get-PathRelativeTo {
+  param([string]$Base, [string]$Full)
+  $b = $Base.TrimEnd('\', '/')
+  $f = (Resolve-Path -LiteralPath $Full).Path
+  if (-not $f.StartsWith($b, [StringComparison]::OrdinalIgnoreCase)) {
+    throw "Path not under base: $Full vs $Base"
+  }
+  $rest = $f.Substring($b.Length).TrimStart('\', '/')
+  return ($rest -replace '\\', '/')
+}
+
 $localNames = @(
   "autofill_japanpost_playwright.mjs",
   "playwright_selectors_japanpost.sample.json",
@@ -38,21 +38,36 @@ $localNames = @(
   "commit_japanpost_autofill.ps1"
 )
 
+$prefixed = $localNames | ForEach-Object { "05_発送ラベル作成/$_" }
+
 $paths = @()
 foreach ($p in $prefixed) {
-  if (Test-Path (Join-Path $root $p)) { $paths += $p }
+  $abs = Join-Path $root ($p -replace '/', [IO.Path]::DirectorySeparatorChar)
+  if (Test-Path -LiteralPath $abs) { $paths += $p }
 }
+
 if (-not $paths.Count) {
-  $sub = Join-Path $root "05_発送ラベル作成"
-  if (Test-Path $sub) {
+  $candidates = @(
+    (Join-Path $root "05_発送ラベル作成"),
+    $here
+  ) | Select-Object -Unique
+  foreach ($dir in $candidates) {
+    if (-not (Test-Path -LiteralPath $dir)) { continue }
     foreach ($n in $localNames) {
-      if (Test-Path (Join-Path $sub $n)) { $paths += "05_発送ラベル作成/$n" }
+      $abs = Join-Path $dir $n
+      if (Test-Path -LiteralPath $abs) {
+        $paths += (Get-PathRelativeTo -Base $root -Full $abs)
+      }
     }
+    if ($paths.Count) { break }
   }
 }
 
-$existing = $paths | Where-Object { Test-Path (Join-Path $root $_) }
-if (-not $existing.Count) { throw "None of the expected paths exist under $root (wrong repo root?)" }
+$paths = $paths | Select-Object -Unique
+$existing = $paths | Where-Object { Test-Path -LiteralPath (Join-Path $root ($_ -replace '/', [IO.Path]::DirectorySeparatorChar)) }
+if (-not $existing.Count) {
+  throw "None of the expected Japan Post files found under $root. Run from repo root or 05_発送ラベル作成, and ensure files exist."
+}
 
 git add -- @existing
 git status
