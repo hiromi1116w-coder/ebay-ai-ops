@@ -1,0 +1,86 @@
+{
+  "_comment": "fillPhases[].clickAfter → selectors.clicks keys. Optional JP_WIZARD_CLICK_FALLBACK=1 when selectors empty (experimental). Step3–5: see STEPS_4_5_6.txt; dump: jp_form_fields_snapshot format 2 (frames[].buttons).",
+  "mergeAddressLines": true,
+  "fillPhases": [
+    { "mode": "recipient" },
+    {
+      "mode": "item",
+      "prompt": "Step 3 (Japan Post): go to Shipment type + item line screen, then Enter in PowerShell.",
+      "clickAfter": ["step3Next"]
+    },
+    {
+      "mode": "confirm",
+      "prompt": "【ページ3】税・重量などの最終確認入力が表示されたら Enter（PowerShell）。3画面目の id が違うときは fieldOverrides に記載。",
+      "fieldOverrides": {},
+      "clickAfter": ["confirmNext"]
+    },
+    {
+      "mode": "step4extras",
+      "prompt": "Step 4: after weight (g), open the screen with agreement checkbox and “other shipping” details. Then Enter.",
+      "fieldOverrides": {},
+      "clickAfter": ["step4WizardNext"]
+    },
+    {
+      "mode": "step5confirm",
+      "prompt": "Step 5: when the content confirmation button is visible, Enter (script clicks step5ContentConfirm if set)."
+    }
+  ],
+  "urls": {
+    "login": "https://www.int-mypage.post.japanpost.jp/smart/MSC1000",
+    "form": ""
+  },
+  "fallbackLabels": {
+    "receiverName": [],
+    "postalCode": [],
+    "weightGrams": []
+  },
+  "countryOptionLabels": {
+    "DE": ["Germany", "ドイツ", "Federal Republic of Germany"],
+    "BR": ["Brazil", "ブラジル"],
+    "US": ["United States", "アメリカ", "U.S.A."]
+  },
+  "fields": {
+    "receiverName": "#addr_name",
+    "postalCode": "#addr_postal",
+    "countryCode": "#addr_couCode",
+    "stateOrProv": "#addr_state",
+    "city": "",
+    "addressLine1": "#addr_addr",
+    "addressLine2": "",
+    "phone": "#addr_tel",
+    "itemTitle": "#itemTitle",
+    "itemOriginCountry": "",
+    "unitPriceJpy": "",
+    "step3ShipmentTypeSelect": "",
+    "quantity": "#quantity",
+    "hsCode": "#hsCode",
+    "weightGrams": "#weight",
+    "sizeCmL": "#sizeL",
+    "sizeCmW": "#sizeW",
+    "sizeCmH": "#sizeH",
+    "vatNumber": "#vatNumber",
+    "iossNumber": "#iossNumber",
+    "rutNumber": "#rutNumber",
+    "step4FlightWeightGrams": "",
+    "taxCode": "",
+    "referenceNumber": ""
+  },
+  "clicks": {
+    "salesItemRadio": "#salesItem",
+    "nonDangerousCheckbox": "#nonDangerous",
+    "step3ShippingEpacketLite": "",
+    "step3ShippingEMS": "",
+    "step3CategorySales": "",
+    "step3ContentLine": "",
+    "step3OpinionConfirm": "",
+    "step3Next": "",
+    "confirmNext": "",
+    "step4WizardNext": "",
+    "step4AgreementCheckbox": "",
+    "step4ExpandOtherShippingInfo": "",
+    "step5ContentConfirm": "",
+    "serviceEpacketLite": "",
+    "serviceEMS": "",
+    "submit": ""
+  }
+}

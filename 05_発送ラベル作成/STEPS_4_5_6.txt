@@ -1,0 +1,53 @@
+PowerShell garbled text: scripts use English + chcp 65001. Or use: pwsh -File .\run_japanpost_through.ps1
+
+ステップ4（通し試験）
+  PowerShell:
+    cd このフォルダ
+    .\run_japanpost_through.ps1
+  または: npm run jp
+  （JP_DUMP_INPUTS を外してから実行する）
+
+ステップ4 補助: DOM 一覧を出す（全 iframe + ボタン／リンク文言つき、format 2）
+    npm run jp:dump
+  または: .\run_japanpost_dump.ps1
+  ラベル作成の各ステップ画面まで進んでから dump すると、frames[].buttons に「次へ」「内容確認」等が載る。
+
+ステップ5（国が選べない）
+  label_input.json の countrySelectLabel に、画面の option 表示と同じ文字列を入れる
+  playwright_selectors_japanpost.sample.json の countryOptionLabels に ISO2 ごとの候補を足す
+
+ステップ6（注文からラベル JSON まで）
+    .\run_japanpost_from_sample_order.ps1
+  その後 label_input.json の weightGrams / sizeCm を確認し、
+    npm run jp
+
+実行ログ
+  毎回 jp_autofill_run_log.jsonl に1行追記（JP_NO_LOG=1 で無効）
+  異常終了時も同ファイルに error 行を追記
+
+Japan Post wizard Step 3 (item phase, mode=item):
+  Order in script: optional ship type click/select -> step3CategorySales -> step3ContentLine
+    -> itemTitle -> originCountryCode -> weightGrams -> hsCode -> unitPriceJpy -> quantity
+    -> sizes + VAT fields -> step3OpinionConfirm checkbox
+  Fill selectors in playwright_selectors_japanpost.sample.json:
+    clicks: step3ShippingEpacketLite, step3ShippingEMS, step3CategorySales, step3ContentLine, step3OpinionConfirm
+    fields: step3ShipmentTypeSelect (with label.jpShipmentSelectValue or shippingService), itemOriginCountry, unitPriceJpy
+  label_input.json: originCountryCode, unitPriceJpy, jpShipmentSelectValue (exact <option value> for shipment type select)
+
+Japan Post wizard Step 4 (mode=step4extras in fillPhases):
+  Order in script: step4FlightWeightGrams (or billableWeightGrams / weightGrams fallback)
+    -> clicks.step4AgreementCheckbox -> clicks.step4ExpandOtherShippingInfo
+    -> taxCode, vatNumber, iossNumber, rutNumber, referenceNumber (eBay / EU などで必要な分だけ label_input に入れる)
+  Selectors: fields.step4FlightWeightGrams, fields.taxCode, fields.referenceNumber + the three clicks above.
+  同意チェックは Playwright の check() でオンにします（クリックのみより安定）。
+
+fillPhases の clickAfter（任意）:
+  各フェーズの入力のあと、selectors.clicks のキーを順にクリックします（例: item 後に step3Next、confirm 後に confirmNext）。
+  セレクタが空なら何もしません。全自動に近づけるときは jp:dump で得た「次へ」ボタンの CSS を step3Next 等に記入。
+
+JP_WIZARD_CLICK_FALLBACK=1（任意・実験用）:
+  セレクタが空のとき、文言で「次へ」「内容確認」などを推測クリックします。誤クリックしうるため本番はセレクタ推奨。
+  PowerShell 例: $env:JP_WIZARD_CLICK_FALLBACK="1"; npm run jp
+
+Japan Post wizard Step 5 (mode=step5confirm):
+  clicks.step5ContentConfirm — 内容確認ボタン（セレクタは jp:dump で取った id / CSS を記入）
