@@ -1,0 +1,18 @@
+{
+  "listings": [
+    {
+      "sku": "aikawa0515/75",
+      "sellstaId": "",
+      "ebayItemId": "397951497363",
+      "priority": "normal",
+      "currentPriceUsd": 160,
+      "currentShippingPolicy": "0004 cpass 151～200 ドル",
+      "competitorItemUsd": 122.75,
+      "competitorShippingUsd": 29.5,
+      "competitorLowestTotalUsd": 152.25,
+      "costJpy": 15380,
+      "outboundShippingJpy": 3381,
+      "notes": "スクショ例: UK最安 152.25 → 提案 152.24, policy 0004 のまま"
+    }
+  ]
+}

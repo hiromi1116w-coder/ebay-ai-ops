@@ -1,0 +1,7 @@
+node_modules/
+output/
+listings_input.json
+profit_rules.json
+*.log
+playwright_selectors_sellsta.json
+.storage/

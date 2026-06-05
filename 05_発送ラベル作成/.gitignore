@@ -1,0 +1,7 @@
+node_modules/
+jp_autofill_run_log.jsonl
+japanpost_auth.json
+autofill_*_preview.png
+autofill_preview.png
+label_preview.html
+jp_snapshot_*.json

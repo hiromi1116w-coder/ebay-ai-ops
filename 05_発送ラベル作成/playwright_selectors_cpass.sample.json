@@ -1,0 +1,40 @@
+{
+  "autoSelectService": true,
+  "urls": {
+    "login": "https://cpass.ebay.com/login?callbackUrl=https%3A%2F%2Fcpass.ebay.com%2Fsetting%2Fsystemsettings",
+    "form": ""
+  },
+  "services": {
+    "card": ".service-item, .service-card, li, .card",
+    "name": "",
+    "price": "",
+    "selectButton": "button"
+  },
+  "fields": {
+    "receiverName": "#receiverName",
+    "postalCode": "#postalCode",
+    "countryCode": "#countryCode",
+    "stateOrProv": "#state",
+    "city": "#city",
+    "addressLine1": "#address1",
+    "addressLine2": "#address2",
+    "phone": "#phone",
+    "itemTitle": "#itemTitle",
+    "quantity": "#quantity",
+    "hsCode": "#hsCode",
+    "weightGrams": "#weight",
+    "sizeCmL": "#sizeL",
+    "sizeCmW": "#sizeW",
+    "sizeCmH": "#sizeH",
+    "vatNumber": "#vatNumber",
+    "iossNumber": "#iossNumber",
+    "rutNumber": "#rutNumber",
+    "batteryType": "#batteryType"
+  },
+  "clicks": {
+    "salesItemRadio": "#salesItem",
+    "nonDangerousCheckbox": "#nonDangerous",
+    "hasBatteryCheckbox": "#hasBattery",
+    "submit": ""
+  }
+}

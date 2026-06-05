@@ -1,3 +1,71 @@
+================================================================================
+■ あなた（人）がやらなければいけないこと（ここだけはブラウザと判断が必要）
+================================================================================
+
+【毎回・発送1件ごと】
+  1) label_input.json を、その注文の宛先・品目・重量・税情報に合わせて編集する
+     （AIはあなたの eBay 画面や実物を見られないので、正しい値の入力は人の仕事）
+
+  2) ブラウザで日本郵便 国際マイページにログインする（ID/PW・2FA がある場合は人）
+
+  3) スクリプトが止まった（PowerShell で Enter 待ち）とき、
+     指示どおりブラウザで「次の画面」まで進めてから Enter を押す
+     （eパケット/EMS・内容品種別を手動で選ぶ運用でもよい＝その間は人が操作）
+
+  4) 新しい画面の DOM を取りたいときだけ:
+     - その画面を表示した状態で  npm run jp:dump  （または別名ファイルで dump）
+     -  npm run jp:hint  でヒントを見て、playwright_selectors_japanpost*.json の
+       clicks / fields にセレクタを貼る
+     （画面の HTML はあなたの PC 上だけ。AIが自動で触れないので、dump→貼り付けは人）
+
+  5) Git の push や GitHub の認証が必要なときは、ブラウザ認証・remote URL は人が完了させる
+
+【初回だけ多め】
+  - 国の select が失敗する → countrySelectLabel や countryOptionLabels を画面の表記どおりに直す
+  - Step4/5 のボタン・入力欄 → 各ステップで dump して selectors に反映する
+
+--------------------------------------------------------------------------------
+■ ツール／スクリプト（リポジトリ）が自動でやること（あなたはコマンドを叩くだけ）
+--------------------------------------------------------------------------------
+
+  - 指定した入力欄への fill（セレクタまたはラベル推測）
+  - fillPhases に従った区切り（Enter 待ち）
+  - 子 iframe の検出（pickFillRoot）
+  - 同意チェックの check()、clickAfter での「次へ」クリック（セレクタが入っている場合）
+  - jp:dump → 全フレームの input / button 一覧（format 2）
+  - jp:hint → セレクタ候補の表示
+  - 実行サマリの jp_autofill_run_log.jsonl 追記（JP_NO_LOG=1 でオフ）
+
+--------------------------------------------------------------------------------
+■ いちばん短い「1通し」の流れ（慣れるまでこれだけ追う）
+--------------------------------------------------------------------------------
+
+  A. フォルダへ移動
+       cd  （STEPS_4_5_6.txt がある 05_発送ラベル作成 フォルダ）
+
+  B. label_input.json を編集（注文内容）
+
+  C. 自動入力を起動（dump しない）
+       npm run jp
+     または
+       .\run_japanpost_through.ps1
+
+  D. ターミナルに出る日本語／英語の指示どおり、ブラウザを進めて Enter
+
+  E. どこかで入力が空振りしたら、その画面で dump → hint → selectors を1つ足してから再度 C
+
+--------------------------------------------------------------------------------
+■ Step3 用の dump を宛先の JSON と分けたいとき（上級・任意）
+--------------------------------------------------------------------------------
+
+       .\run_japanpost_dump.ps1 jp_snapshot_step3.json
+       npm run jp:hint -- jp_snapshot_step3.json
+     jp_snapshot_*.json は .gitignore 済み（コミットされない）
+
+================================================================================
+以下: 細かいコマンド・トラブル用メモ（従来どおり）
+================================================================================
+
 PowerShell garbled text: scripts use English + chcp 65001. Or use: pwsh -File .\run_japanpost_through.ps1
 
 ステップ4（通し試験）
@@ -12,6 +80,18 @@ PowerShell garbled text: scripts use English + chcp 65001. Or use: pwsh -File .\
   または: .\run_japanpost_dump.ps1
   ラベル作成の各ステップ画面まで進んでから dump すると、frames[].buttons に「次へ」「内容確認」等が載る。
 
+  Step3 など別画面の dump を既定ファイルに上書きしたくないとき（同じフォルダ内のファイル名）:
+    .\run_japanpost_dump.ps1 jp_snapshot_step3.json
+    または: npm run jp:dump -- jp_snapshot_step3.json
+  ヒントをそのファイルから出す:
+    npm run jp:hint -- jp_snapshot_step3.json
+    または: node jp_hint_from_dump.mjs jp_snapshot_step3.json
+
+  ダンプから selectors 用のヒントだけ出す:
+    npm run jp:hint
+  または: .\run_japanpost_hint.ps1
+  （jp_form_fields_snapshot.json が同じフォルダにあること）
+
 ステップ5（国が選べない）
   label_input.json の countrySelectLabel に、画面の option 表示と同じ文字列を入れる
   playwright_selectors_japanpost.sample.json の countryOptionLabels に ISO2 ごとの候補を足す
@@ -24,6 +104,10 @@ PowerShell garbled text: scripts use English + chcp 65001. Or use: pwsh -File .\
 実行ログ
   毎回 jp_autofill_run_log.jsonl に1行追記（JP_NO_LOG=1 で無効）
   異常終了時も同ファイルに error 行を追記
+
+Japan Post wizard Step 1 (recipient, mode=recipient):
+  Sample fillPhases includes clickAfter: ["recipientNext"] after address fields.
+  clicks.recipientNext uses dump-derived selector when id is empty on the blue form.
 
 Japan Post wizard Step 3 (item phase, mode=item):
   Order in script: optional ship type click/select -> step3CategorySales -> step3ContentLine

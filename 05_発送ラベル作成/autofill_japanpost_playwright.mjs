@@ -160,6 +160,7 @@ function wizardClickFallbackEnabled() {
 
 /** JP_WIZARD_CLICK_FALLBACK=1 のとき、セレクタ未設定の clickAfter などで試す（誤クリック防止のため既定オフ） */
 const WIZARD_CLICK_FALLBACK_PATTERNS = {
+  recipientNext: [/次へ/, /次のステップ/, /進む/],
   step3Next: [/次へ/, /次のステップ/, /進む/, /続ける/],
   confirmNext: [/次へ/, /確認へ/, /確認画面/],
   step4WizardNext: [/次へ/, /進む/],
@@ -261,10 +262,18 @@ async function dumpInputSnapshot(page, outPath) {
     console.log(
       `JP_DUMP_INPUTS=1 → DOM スナップショット（format=${payload.format}, ${payload.frames.length} frames）: ${outPath}`
     );
-    console.log("ヒント: frames[].buttons の text / id を selectors.clicks（step3Next, step5ContentConfirm 等）に転記。");
+    console.log("ヒント: frames[].buttons / inputs を selectors に転記。別ファイルなら npm run jp:hint -- <ファイル名>");
   } catch (e) {
     console.warn("DOM スナップショット出力に失敗:", e.message);
   }
+}
+
+/** JP_SNAPSHOT_FILE があればそのファイル名（相対は 05 フォルダ基準）。未設定なら jp_form_fields_snapshot.json */
+function snapshotOutPath(baseDir) {
+  const raw = String(process.env.JP_SNAPSHOT_FILE || "").trim();
+  if (!raw) return path.join(baseDir, "jp_form_fields_snapshot.json");
+  if (path.isAbsolute(raw)) return raw;
+  return path.join(baseDir, raw);
 }
 
 async function logFormDiagnostics(page) {
@@ -737,7 +746,8 @@ async function main() {
   }
 
   if (String(process.env.JP_DUMP_INPUTS || "").toLowerCase() === "1") {
-    await dumpInputSnapshot(page, path.join(baseDir, "jp_form_fields_snapshot.json"));
+    const snapOut = snapshotOutPath(baseDir);
+    await dumpInputSnapshot(page, snapOut);
   }
 
   const svc = decideJapanPostService(label);

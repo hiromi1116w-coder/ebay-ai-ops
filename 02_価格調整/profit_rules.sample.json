@@ -1,0 +1,11 @@
+{
+  "pricingMode": "uk_sellsta",
+  "fxUsdJpy": 150,
+  "ebayFeeRate": 0.15,
+  "fixedFeeUsd": 0.3,
+  "minProfitMarginPercent": 1,
+  "marginDenominator": "cost",
+  "undercutUsd": 0.01,
+  "shipTo": "United Kingdom",
+  "_comment": "利益の正はセルスタ利益計算。uk_sellsta 時は販売額=競合total-0.01。試算は run_uk_checklist を使う"
+}

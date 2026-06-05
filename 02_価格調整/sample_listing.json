@@ -1,0 +1,29 @@
+{
+  "listings": [
+    {
+      "sku": "DEMO-FIG-001",
+      "sellstaId": "",
+      "ebayItemId": "",
+      "priority": "normal",
+      "currentPriceUsd": 89.99,
+      "shippingChargedUsd": 0,
+      "competitorLowestTotalUsd": 85.5,
+      "costJpy": 6500,
+      "outboundShippingJpy": 1200,
+      "packagingJpy": 0,
+      "notes": "デモ用。competitorLowestTotalUsd を実際の最安合計に差し替える"
+    },
+    {
+      "sku": "DEMO-HOT-002",
+      "sellstaId": "",
+      "ebayItemId": "",
+      "priority": "hot",
+      "currentPriceUsd": 120,
+      "shippingChargedUsd": 15,
+      "competitorLowestTotalUsd": 140,
+      "costJpy": 9000,
+      "outboundShippingJpy": 1500,
+      "notes": "競合より高い例 → lower になる想定"
+    }
+  ]
+}

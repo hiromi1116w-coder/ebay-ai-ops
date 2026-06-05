@@ -2,7 +2,9 @@
   "scripts": {
     "jp": "node autofill_japanpost_playwright.mjs",
     "jp:through": "node autofill_japanpost_playwright.mjs",
-    "jp:dump": "node run_dump.mjs"
+    "jp:dump": "node run_dump.mjs",
+    "jp:hint": "node jp_hint_from_dump.mjs",
+    "jp:guide": "node jp_hint_from_dump.mjs --guide"
   },
   "dependencies": {
     "playwright": "^1.59.1"

@@ -2,7 +2,7 @@
   "_comment": "fillPhases[].clickAfter → selectors.clicks keys. Optional JP_WIZARD_CLICK_FALLBACK=1 when selectors empty (experimental). Step3–5: see STEPS_4_5_6.txt; dump: jp_form_fields_snapshot format 2 (frames[].buttons).",
   "mergeAddressLines": true,
   "fillPhases": [
-    { "mode": "recipient" },
+    { "mode": "recipient", "clickAfter": ["recipientNext"] },
     {
       "mode": "item",
       "prompt": "Step 3 (Japan Post): go to Shipment type + item line screen, then Enter in PowerShell.",
@@ -66,6 +66,7 @@
     "referenceNumber": ""
   },
   "clicks": {
+    "recipientNext": "input.form__submit[value=\"次へ\"]",
     "salesItemRadio": "#salesItem",
     "nonDangerousCheckbox": "#nonDangerous",
     "step3ShippingEpacketLite": "",
@@ -73,7 +74,7 @@
     "step3CategorySales": "",
     "step3ContentLine": "",
     "step3OpinionConfirm": "",
-    "step3Next": "",
+    "step3Next": "input.form__submit[value=\"次へ\"]",
     "confirmNext": "",
     "step4WizardNext": "",
     "step4AgreementCheckbox": "",

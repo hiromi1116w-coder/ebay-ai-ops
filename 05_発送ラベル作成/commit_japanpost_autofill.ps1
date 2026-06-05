@@ -27,14 +27,27 @@ function Get-PathRelativeTo {
 }
 
 $localNames = @(
+  ".gitignore",
   "autofill_japanpost_playwright.mjs",
+  "autofill_cpass_playwright.mjs",
   "playwright_selectors_japanpost.sample.json",
-  "label_input.json",
+  "playwright_selectors_cpass.sample.json",
+  "label_input.sample.json",
   "build_label_input.ps1",
+  "generate_label_preview.ps1",
   "STEPS_4_5_6.txt",
   "jp_form_fields_snapshot.json",
   "run_dump.mjs",
+  "run_japanpost_hint.ps1",
   "package.json",
+  "package-lock.json",
+  "run_japanpost_autofill.ps1",
+  "run_japanpost_dump.ps1",
+  "run_japanpost_from_sample_order.ps1",
+  "run_japanpost_through.ps1",
+  "run_label_demo_pipeline.ps1",
+  "自動入力フロー設計.md",
+  "運用手順.md",
   "commit_japanpost_autofill.ps1"
 )
 

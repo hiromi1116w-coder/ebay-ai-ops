@@ -1,0 +1,24 @@
+# Secrets and credentials (never commit)
+.env
+.env.*
+*.pem
+*credentials*
+*secret*
+
+# eBay tokens (local only)
+ebay_tokens.json
+refresh_token.txt
+
+# Order data with buyer PII
+05_発送ラベル作成/sample_order.json
+05_発送ラベル作成/label_input.json
+
+# Japan Post local runtime (see 05_発送ラベル作成/.gitignore)
+05_発送ラベル作成/japanpost_auth.json
+05_発送ラベル作成/jp_autofill_run_log.jsonl
+05_発送ラベル作成/jp_snapshot_*.json
+05_発送ラベル作成/autofill_*_preview.png
+05_発送ラベル作成/label_preview.html
+
+# Node
+**/node_modules/

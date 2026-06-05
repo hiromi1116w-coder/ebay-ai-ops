@@ -1,0 +1,25 @@
+﻿[2026-06-05 13:56:47] === PC migration prep started ===
+[2026-06-05 13:56:47] Repo root: C:\Users\admin\Desktop\eBay-AI-Ops
+[2026-06-05 13:56:47] Skip (not found): C:\Users\admin\Desktop\eBay-AI-Ops\05_逋ｺ騾√Λ繝吶Ν菴懈・\sample_order.json
+[2026-06-05 13:56:47] Skip (not found): C:\Users\admin\Desktop\eBay-AI-Ops\05_逋ｺ騾√Λ繝吶Ν菴懈・\label_input.json
+[2026-06-05 13:56:47] Skip (not found): C:\Users\admin\Desktop\eBay-AI-Ops\05_逋ｺ騾√Λ繝吶Ν菴懈・\jp_autofill_run_log.jsonl
+[2026-06-05 13:56:47] Skip (not found): C:\Users\admin\Desktop\eBay-AI-Ops\05_逋ｺ騾√Λ繝吶Ν菴懈・\japanpost_auth.json
+[2026-06-05 13:56:47] Skip (not found): C:\Users\admin\Desktop\eBay-AI-Ops\05_逋ｺ騾√Λ繝吶Ν菴懈・\jp_form_fields_snapshot.json
+[2026-06-05 13:56:47] Backed up: HANDOFF.md
+[2026-06-05 13:56:47] Backed up: docs\SECRETS_BACKUP_CHECKLIST.md
+[2026-06-05 13:56:47] Created: C:\Users\admin\Desktop\eBay-AI-Ops-Migration-Backup\secrets_TEMPLATE.txt (fill in manually)
+[2026-06-05 13:56:47] Backup folder: C:\Users\admin\Desktop\eBay-AI-Ops-Migration-Backup
+[2026-06-05 13:56:47] >>> Copy this folder to USB / cloud (encrypted) before decommissioning old PC <<<
+[2026-06-05 13:57:52] === PC migration prep started ===
+[2026-06-05 13:57:52] Repo root: C:\Users\admin\Desktop\eBay-AI-Ops
+[2026-06-05 13:57:52] Label dir: 05_発送ラベル作成
+[2026-06-05 13:57:52] Backed up: 05_発送ラベル作成\sample_order.json
+[2026-06-05 13:57:52] Backed up: 05_発送ラベル作成\label_input.json
+[2026-06-05 13:57:52] Backed up: 05_発送ラベル作成\jp_autofill_run_log.jsonl
+[2026-06-05 13:57:52] Skip (not found): 05_発送ラベル作成\japanpost_auth.json
+[2026-06-05 13:57:52] Backed up: 05_発送ラベル作成\jp_form_fields_snapshot.json
+[2026-06-05 13:57:52] Backed up: HANDOFF.md
+[2026-06-05 13:57:52] Backed up: docs\SECRETS_BACKUP_CHECKLIST.md
+[2026-06-05 13:57:52] Created: secrets_TEMPLATE.txt (fill in manually)
+[2026-06-05 13:57:52] Backup folder: C:\Users\admin\Desktop\eBay-AI-Ops-Migration-Backup
+[2026-06-05 13:57:52] No sample_order.json / label_input.json in git index (OK).

@@ -1,0 +1,34 @@
+{
+  "sellstaListUrl": "https://sellsta.biz/",
+  "shipToCountry": "United Kingdom",
+  "maxSkusPerRun": 1,
+  "delayMsBetweenSkus": 5000,
+  "scanSkus": ["aikawa0515/75"],
+  "selectors": {
+    "listingRowBySku": "",
+    "ebayCompareCheckbox": "出品管理メモ欄右下・UAR付近のチェックボックス（要DOM確定）",
+    "profitCalcButton": "利益計算",
+    "profitSellingPriceUsd": "",
+    "profitShippingUsd": "",
+    "profitDdpPercent": "",
+    "profitMarginText": "",
+    "profitToListingButton": "出品画面へ",
+    "listingSellingPrice": "",
+    "listingShippingPolicySelect": "",
+    "listingUpdateButton": "更新"
+  },
+  "ebay": {
+    "shipToIndicator": "United Kingdom または UK フラグ",
+    "sortLowestPriceShipping": "Price + Shipping: lowest first",
+    "firstResultLink": "",
+    "itemPriceUsd": "",
+    "shippingPriceUsd": ""
+  },
+  "profitCheck": {
+    "sellingPriceUsd": "competitorTotal - 0.01",
+    "shippingUsd": 0,
+    "ddpPercentForUkCheck": 0,
+    "ddpPercentAfterListing": 25
+  },
+  "_setup": "05_発送ラベル作成 と同様。まず1 SKUで run_dump 相当のDOM取得"
+}

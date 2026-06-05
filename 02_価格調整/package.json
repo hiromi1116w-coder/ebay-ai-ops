@@ -1,0 +1,8 @@
+{
+  "name": "ebay-ai-ops-pricing",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "propose": "node run_price_proposal.mjs"
+  }
+}
